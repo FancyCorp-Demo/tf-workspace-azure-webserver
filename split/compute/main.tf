@@ -29,7 +29,7 @@ data "tfe_outputs" "network" {
 }
 
 output "upstream" {
-  value = nonsensitive(data.tfe_outputs.network)
+  value = data.tfe_outputs.network
 }
 
 /*
