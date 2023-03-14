@@ -29,22 +29,5 @@ data "tfe_outputs" "network" {
 }
 
 output "upstream" {
-  value = data.tfe_outputs.network
+  value = data.tfe_outputs.network.nonsensitive_values
 }
-
-/*
-module "webserver" {
-  source  = "app.terraform.io/fancycorp/webserver/azure"
-  version = "~> 2.0"
-
- # TODO:
-  # subnet_id = ...
-
-  # For an example PR...
-  # Standard_B8ms will cause a policy-fail
-  machine_size = var.machine_size
-
-  packer_bucket_name = var.packer_bucket_name
-  packer_channel     = var.packer_channel
-}
-*/
