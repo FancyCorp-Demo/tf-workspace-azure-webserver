@@ -6,7 +6,6 @@ variable "resource_group_tags" {
     TTL       = "24h"
     Terraform = "true"
     Source    = "https://github.com/FancyCorp-Demo/tf-workspace-azure-webserver/tree/main/split/network/"
-    Workspace = terraform.workspace
   }
 }
 
