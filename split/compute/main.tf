@@ -3,7 +3,7 @@ terraform {
     organization = "fancycorp"
 
     workspaces {
-      tags = ["webserver", "platform:azure"]
+      tags = ["webserver", "platform:azure", "component:compute"]
     }
   }
   # Minimum provider version for OIDC auth
@@ -23,31 +23,28 @@ provider "azurerm" {
   features {}
 }
 
+data "tfe_outputs" "network" {
+  organization = "fancycorp"
+  workspace    = var.network_workspace
+}
 
+output "upstream" {
+  value = nonsensitive(data.tfe_outputs.network)
+}
 
-# TODO: module that only does compute
-
+/*
 module "webserver" {
   source  = "app.terraform.io/fancycorp/webserver/azure"
   version = "~> 2.0"
 
-  resource_group_name = "strawb-tfc-demo-${terraform.workspace}"
-  location            = "UK South"
+ # TODO:
+  # subnet_id = ...
 
   # For an example PR...
   # Standard_B8ms will cause a policy-fail
   machine_size = var.machine_size
 
-  resource_group_tags = {
-    Name      = "StrawbTest"
-    Owner     = "lucy.davinhart@hashicorp.com"
-    Purpose   = "Terraform TFC Demo Org (FancyCorp)"
-    TTL       = "24h"
-    Terraform = "true"
-    Source    = "https://github.com/FancyCorp-Demo/tfcb-setup/tree/main/terraform-azure"
-    Workspace = terraform.workspace
-  }
-
   packer_bucket_name = var.packer_bucket_name
   packer_channel     = var.packer_channel
 }
+*/

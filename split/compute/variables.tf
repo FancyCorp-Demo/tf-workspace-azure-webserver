@@ -1,3 +1,7 @@
+#
+# Configure This Workspace
+#
+
 variable "machine_size" {
   type    = string
   default = "Standard_B1ls"
@@ -15,5 +19,11 @@ variable "packer_channel" {
   description = "Which HCP Packer channel should we use for our Machine Image?"
 }
 
+#
+# Upstream Workspace
+#
 
-# TODO: Variable to specify which workspace to use for the vnet ID
+variable "network_workspace" {
+  type        = string
+  description = "Which upstream workspace created the network?"
+}
