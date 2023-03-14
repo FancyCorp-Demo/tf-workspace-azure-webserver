@@ -1,4 +1,5 @@
 
+/*
 output "private_ssh_key" {
   value     = module.webserver.private_ssh_key
   sensitive = true
@@ -21,4 +22,4 @@ output "public_url" {
   value = module.webserver.public_url
 }
 
-
+*/
