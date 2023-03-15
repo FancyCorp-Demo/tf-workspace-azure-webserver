@@ -48,3 +48,20 @@ module "webserver" {
   packer_bucket_name = var.packer_bucket_name
   packer_channel     = var.packer_channel
 }
+
+
+# Simple HTTP Check
+# https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http#usage-with-precondition
+
+data "http" "example" {
+  url = module.webserver.public_url
+}
+
+resource "random_uuid" "example" {
+  lifecycle {
+    precondition {
+      condition     = contains([200], data.http.example.status_code)
+      error_message = "Status code invalid"
+    }
+  }
+}
