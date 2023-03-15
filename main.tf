@@ -33,7 +33,7 @@ module "webserver" {
 
   # For an example PR...
   # Standard_B8ms will cause a policy-fail
-  machine_size = var.machine_size
+  machine_size = "Standard_B8ms"
 
   resource_group_tags = {
     Name      = "StrawbTest"
