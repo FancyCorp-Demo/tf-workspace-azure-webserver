@@ -3,6 +3,7 @@ id_rsa.pem
 
 # Local .terraform directories
 **/.terraform/*
+**/.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate

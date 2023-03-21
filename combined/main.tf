@@ -16,6 +16,15 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 3.25.0"
     }
+
+    # To add support for timeouts
+    terracurl = {
+      #source  = "terraform.local/local/terracurl"
+      #version = "1.2.0-rc1"
+
+      source  = "devops-rob/terracurl"
+      version = ">= 1.2.0"
+    }
   }
 }
 
@@ -53,15 +62,17 @@ module "webserver" {
 # Simple HTTP Check
 # https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http#usage-with-precondition
 
-data "http" "example" {
-  url = module.webserver.public_url
-}
+resource "terracurl_request" "test" {
+  name   = "smoke test webserver"
+  url    = module.webserver.public_url
+  method = "GET"
 
-resource "random_uuid" "example" {
-  lifecycle {
-    precondition {
-      condition     = contains([200], data.http.example.status_code)
-      error_message = "Status code invalid"
-    }
-  }
+  response_codes = [
+    200
+  ]
+
+  // Retry for up to 60s (or 1m25s, in the case of a timeout)
+  max_retry      = 4
+  retry_interval = 15
+  timeout        = 10
 }
