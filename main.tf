@@ -25,6 +25,7 @@ provider "azurerm" {
 
 
 module "webserver" {
+  # https://github.com/FancyCorp-Demo/terraform-azure-webserver
   source  = "app.terraform.io/fancycorp/webserver/azure"
   version = "~> 2.0"
 
