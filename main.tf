@@ -30,7 +30,7 @@ module "webserver" {
   version = "~> 2.0"
 
   resource_group_name = "strawb-tfc-demo-${terraform.workspace}"
-  location            = "UK South"
+  location            = var.location
 
   # For an example PR...
   # Standard_B8ms will cause a policy-fail

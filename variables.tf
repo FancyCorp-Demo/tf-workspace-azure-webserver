@@ -3,6 +3,11 @@ variable "machine_size" {
   default = "Standard_B1ls"
 }
 
+variable "location" {
+  type    = string
+  default = "UK South"
+}
+
 variable "packer_bucket_name" {
   type        = string
   default     = "azure-webserver"
