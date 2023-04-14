@@ -1,21 +1,9 @@
 terraform {
-  cloud {
-    organization = "fancycorp"
-
-    workspaces {
-      tags = ["webserver", "platform:azure"]
-    }
-  }
-  # Minimum provider version for OIDC auth
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">= 2.29.0"
-    }
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.25.0"
-    }
+  backend "azurerm" {
+    resource_group_name  = "strawb-tf-state"
+    storage_account_name = "strawbtfstate"
+    container_name       = "tfstate"
+    key                  = "dev.terraform.tfstate"
   }
 }
 
@@ -28,7 +16,7 @@ module "webserver" {
   source  = "app.terraform.io/fancycorp/webserver/azure"
   version = "~> 2.0"
 
-  resource_group_name = "strawb-tfc-demo-${terraform.workspace}"
+  resource_group_name = "strawb-tfc-demo-webserver"
   location            = "UK South"
 
   # For an example PR...
