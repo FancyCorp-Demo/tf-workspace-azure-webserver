@@ -34,7 +34,7 @@ module "webserver" {
 
   # For an example PR...
   # Standard_B8ms will cause a policy-fail
-  machine_size = var.machine_size
+  machine_size = "Standard_B8ms"
 
   resource_group_tags = {
     Name      = "StrawbTest"
@@ -48,4 +48,9 @@ module "webserver" {
 
   packer_bucket_name = var.packer_bucket_name
   packer_channel     = var.packer_channel
+}
+
+module "naming" {
+  source  = "Azure/naming/azurerm"
+  suffix = [ "test" ]
 }
